@@ -19,7 +19,7 @@ var SignInVM = function() {
             },
             success: function(data, textStatus, jQxhr) {
 
-                if(data.isAuthenticated==false){
+                if(data.isAuthenticated==true){
                     location.href =data.redirectUrl;
                 }else{
                     alert(data.message)
@@ -36,3 +36,21 @@ var SignInVM = function() {
 var vm=new SignInVM();
 
 ko.applyBindings(vm); 
+
+ $.ajax({
+            url: '../../app/controllers/userscontroller.php',
+            dataType: 'json',
+            type: 'post',
+            async:false,
+            data: {
+                action: 'checkAccess'
+            },
+            success: function(data, textStatus, jQxhr) {
+                if(data.isAuthenticated==true){
+                    //location.href =data.redirectUrl;
+                }
+            },
+            error: function(jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });

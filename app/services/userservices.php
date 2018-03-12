@@ -1,5 +1,5 @@
 <?php
-
+    
 class userservices
 {
     public function autheticate($email, $password)
@@ -9,8 +9,6 @@ class userservices
         
 
         $user = $db->dt_users("email = ? and password = ?", $email, $password)->fetch();
-        
-         throw new Exception($user);
 
         $myObj = (object)array();
 
@@ -19,7 +17,7 @@ class userservices
             $myObj->isAuthenticated = true;
             $myObj->redirectUrl = '../../index.html';
             $myObj->message = 'Login Successfull..';
-            $_SESSION["userid"] = $user . id;
+            $_SESSION["userid"] = $user['id'];
         }
         else
         {
